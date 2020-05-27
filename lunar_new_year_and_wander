@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+#define pb push_back
+using namespace std;
+int main(){
+    int n,m;
+    cin>>n>>m;
+    vector<vector<int>> adj;
+    int x,y;
+    adj.resize(n+1);
+    while(m--){
+        cin>>x>>y;
+        adj[x].pb(y);
+        adj[y].pb(x);
+    }
+    vector<bool> vis(n+1);
+    set<int> can;
+    vector<int> ans;
+    ans.pb(1);
+    vis[1]=true;
+    while(ans.size()<n){
+        int node=ans.back();
+        for(auto nbr: adj[node]){
+            if(!vis[nbr]){
+                can.insert(nbr);
+           }
+        }
+        auto it=can.begin();
+        ans.pb((*it));
+        vis[(*it)]=true;
+        can.erase(it);
+    }
+    for(int i=0;i<n;i++){
+        cout<<ans[i]<<" ";
+    }
+    return 0;
+}
